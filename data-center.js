@@ -189,10 +189,8 @@ function exportUsersSheetToExcel() {
         return;
     }
 
-    // 1. عناوين الأعمدة
     const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText.trim());
 
-    // 2. بيانات الصفوف من الـ Inputs الحالية
     const rowsData = [];
     const rows = table.querySelectorAll('tbody tr');
 
@@ -209,15 +207,12 @@ function exportUsersSheetToExcel() {
         rowsData.push(rowData);
     });
 
-    // 3. تجميع البيانات
     const excelData = [headers, ...rowsData];
 
-    // 4. إنشاء الملف
     const worksheet = XLSX.utils.aoa_to_sheet(excelData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "جدول المستخدمين");
 
-    // 5. التحميل
     const fileName = `Users_Sheet_${new Date().toISOString().slice(0, 10)}.xlsx`;
     XLSX.writeFile(workbook, fileName);
 }
@@ -356,7 +351,6 @@ async function saveUsersDataCenterSheetToDB() {
 }
 
 // ================= جداول الموديلات في مركز البيانات =================
-// المفتاح (key) هو الجزء الذي يتوسط اسم الدالة: get_<key>_models_for_data_center
 const DATA_CENTER_BRANDS = [
     { key: 'apple',   label: 'أبل - Apple' },
     { key: 'samsung', label: 'سامسونج - Samsung' },
@@ -373,6 +367,24 @@ const DATA_CENTER_BRANDS = [
     { key: 'techno',  label: 'تكنو - Techno' },
     { key: 'itel',    label: 'أيتل - Itel' }
 ];
+
+// الأعمدة الافتراضية لكل ماركة عند إرجاع قائمة فارغة
+const BRAND_DEFAULT_COLUMNS = {
+    apple: ['id', 'apple_phone_name', 'apple_phone_code', 'apple_screen_compatibility', 'apple_battery_model'],
+    samsung: ['id', 'samsung_phone_name', 'samsung_phone_code', 'samsung_screen_compatibility', 'samsung_battery_model'],
+    xiaomi: ['id', 'xiaomi_phone_name', 'xiaomi_phone_code', 'xiaomi_screen_compatibility', 'xiaomi_battery_model'],
+    redmi: ['id', 'redmi_phone_name', 'redmi_phone_code', 'redmi_screen_compatibility', 'redmi_battery_model'],
+    infinix: ['id', 'infinix_phone_name', 'infinix_phone_code', 'infinix_screen_compatibility', 'infinix_battery_model'],
+    oppo: ['id', 'oppo_phone_name', 'oppo_phone_code', 'oppo_screen_compatibility', 'oppo_battery_model'],
+    realme: ['id', 'realme_phone_name', 'realme_screen_compatibility', 'realme_battery_model'],
+    huawei: ['id', 'huawei_phone_name', 'huawei_phone_code', 'huawei_screen_compatibility', 'huawei_battery_model'],
+    vivo: ['id', 'vivo_phone_name', 'vivo_phone_code', 'vivo_screen_compatibility', 'vivo_battery_model'],
+    honor: ['id', 'honor_phone_name', 'honor_phone_code', 'honor_screen_compatibility', 'honor_battery_model'],
+    htc: ['id', 'htc_phone_name', 'htc_phone_code', 'htc_screen_compatibility', 'htc_battery_model'],
+    nokia: ['id', 'nokia_phone_name', 'nokia_phone_code', 'nokia_screen_compatibility', 'nokia_battery_model'],
+    techno: ['id', 'tecno_phone_name', 'tecno_phone_code', 'tecno_screen_compatibility', 'tecno_battery_model'],
+    itel: ['id', 'itel_phone_name', 'itel_phone_code', 'itel_screen_compatibility', 'itel_battery_model']
+};
 
 let currentModelsSheetData = [];
 let currentModelsSheetBrand = '';
@@ -416,9 +428,7 @@ function renderDataCenterBrandsScreen() {
     loadDynamicMenuIntoSidebar();
 }
 
-// ---------- شاشة جدول موديلات ماركة معينة (شيت قابل للتعديل) ----------
-// ملاحظة: نستخدم نفس id الخاص بشيت المستخدمين (editableUsersTable) للاستفادة
-// من نفس التنسيق وميزات اللصق الجماعي والسحب للتعبئة بدون تكرار الكود.
+// ---------- شاشة جدول موديلات ماركة معينة (شيت قابل للتعديل والإضافة) ----------
 async function renderDataCenterModelsSheet(brandKey, brandLabel) {
     closeSidebar();
     currentModelsSheetBrand = brandKey;
@@ -435,6 +445,10 @@ async function renderDataCenterModelsSheet(brandKey, brandLabel) {
                 <button type="button" onclick="renderDataCenterModelsSheet('${brandKey}', '${brandLabel}')" class="bg-blue-50 hover:bg-blue-100 text-blue-600 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 border border-blue-200 cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                     <span>تحديث</span>
+                </button>
+                <button type="button" onclick="addNewRowToModelsSheet()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-1.5 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    <span>إضافة صف جديد</span>
                 </button>
                 <button type="button" onclick="saveModelsSheetToDB()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all flex items-center gap-1.5 cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
@@ -481,17 +495,18 @@ async function renderDataCenterModelsSheet(brandKey, brandLabel) {
             titleElement.innerText = `جدول موديلات ${brandLabel} (${modelsList.length})`;
         }
 
-        if (modelsList.length === 0) {
-            const raw = escapeHtmlValue(JSON.stringify(data)).slice(0, 120);
-            sheetContainer.innerHTML = `
-                <div class="text-center text-gray-500 py-12 px-4 space-y-2">
-                    <p class="font-semibold">الدالة رجعت قائمة فارغة لهذا الجدول</p>
-                    <p class="text-xs text-gray-400" dir="ltr">${raw}</p>
-                </div>`;
-            return;
+        let columns = [];
+        if (modelsList.length > 0) {
+            columns = Object.keys(modelsList[0]);
+        } else {
+            columns = BRAND_DEFAULT_COLUMNS[brandKey] || ['id', 'device_name', 'model_code', 'screen_compatibility', 'battery_model'];
+            for (let i = 0; i < 5; i++) {
+                let emptyRow = {};
+                columns.forEach(col => emptyRow[col] = '');
+                modelsList.push(emptyRow);
+            }
         }
 
-        const columns = Object.keys(modelsList[0]);
         const readOnlyCols = ['id', 'created_at', 'updated_at'];
 
         sheetContainer.innerHTML = `
@@ -503,7 +518,7 @@ async function renderDataCenterModelsSheet(brandKey, brandLabel) {
                 </thead>
                 <tbody>
                     ${modelsList.map(row => `
-                        <tr data-id="${escapeHtmlValue(row.id)}">
+                        <tr data-id="${escapeHtmlValue(row.id || '')}">
                             ${columns.map(col => {
                                 const val = row[col] !== null && row[col] !== undefined ? row[col] : '';
                                 if (readOnlyCols.includes(col)) {
@@ -529,6 +544,34 @@ async function renderDataCenterModelsSheet(brandKey, brandLabel) {
     }
 }
 
+// ---------- دالة إضافة صف جديد يدوياً للشيت ----------
+function addNewRowToModelsSheet() {
+    const table = document.getElementById('editableUsersTable');
+    if (!table) return;
+
+    const tbody = table.querySelector('tbody');
+    const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.innerText.trim());
+    const readOnlyCols = ['id', 'created_at', 'updated_at'];
+
+    const newTr = document.createElement('tr');
+    newTr.setAttribute('data-id', '');
+
+    newTr.innerHTML = headers.map(col => {
+        if (readOnlyCols.includes(col)) {
+            return `<td class="p-2 font-mono text-slate-500 text-xs whitespace-nowrap min-w-[150px]" dir="ltr">جديد</td>`;
+        }
+        return `
+            <td class="min-w-[160px] h-[38px] relative">
+                <input type="text" data-field="${escapeHtmlValue(col)}" value="" class="excel-input" dir="auto">
+                <div class="drag-handle" title="اسحب للتعبئة التلقائية"></div>
+            </td>
+        `;
+    }).join('');
+
+    tbody.appendChild(newTr);
+    enableExcelPasteAndDragFill();
+}
+
 // ---------- حفظ شيت الموديلات في قاعدة البيانات ----------
 async function saveModelsSheetToDB() {
     const table = document.getElementById('editableUsersTable');
@@ -545,7 +588,6 @@ async function saveModelsSheetToDB() {
     });
 
     try {
-        // دالة الحفظ الخاصة بكل ماركة: update_<brand>_models_for_data_center
         const { data, error } = await supabaseClient.rpc(`update_${currentModelsSheetBrand}_models_for_data_center`, {
             p_user_id: currentUserId,
             p_payload: payload
