@@ -41,9 +41,9 @@ async function renderMainDashboard() {
             </div>
             <div id="partitionsContainer" class="space-y-3 pb-4">
                 <span class="sr-only">جاري تحميل الأقسام...</span>
-                <div class="skeleton h-20 w-full"></div>
-                <div class="skeleton h-20 w-full"></div>
-                <div class="skeleton h-20 w-full"></div>
+                <div class="skeleton h-20 w-full rounded-3xl"></div>
+                <div class="skeleton h-20 w-full rounded-3xl"></div>
+                <div class="skeleton h-20 w-full rounded-3xl"></div>
             </div>
         </div>
     `;
@@ -70,20 +70,14 @@ async function renderMainDashboard() {
         if (container && partitionsList && partitionsList.length > 0) {
             let partitionsHtml = partitionsList.map(name => {
                 const m = partitionMeta(name);
-                const cardCls = m.feature
-                    ? 'bg-primary text-primary-content shadow-lg hover:shadow-xl'
-                    : 'bg-base-200 hover:bg-base-300 border border-base-300';
-                const iconCls = m.feature ? 'bg-primary-content/15 text-secondary' : 'bg-primary/10 text-primary';
                 return `
-                    <button type="button" onclick="${m.action}" class="card w-full text-start transition-all active:scale-[0.99] ${cardCls}">
-                        <div class="card-body flex-row items-center gap-4 ${m.feature ? 'p-5' : 'p-4'}">
-                            <div class="rounded-2xl p-3 flex-shrink-0 ${iconCls}">${uiIcon(m.icon, 'w-6 h-6')}</div>
-                            <div class="flex-1 min-w-0">
-                                <h3 class="card-title ${m.feature ? 'text-xl' : 'text-base'}" dir="auto">${escapeHtmlValue(name)}</h3>
-                                ${m.desc ? `<p class="text-sm ${m.feature ? 'opacity-80' : 'text-base-content/60'}">${m.desc}</p>` : ''}
-                            </div>
-                            ${uiIcon('chevron', 'w-5 h-5 flex-shrink-0 opacity-50')}
+                    <button type="button" onclick="${m.action}" class="dash-card ${m.feature ? 'feature teal-floral' : ''}">
+                        <div class="dash-ico">${uiIcon(m.icon, 'w-6 h-6')}</div>
+                        <div class="flex-1 min-w-0 relative">
+                            <h3 class="font-bold ${m.feature ? 'text-lg' : 'text-base'}" dir="auto">${escapeHtmlValue(name)}</h3>
+                            ${m.desc ? `<p class="text-sm ${m.feature ? 'opacity-90' : 'text-base-content/60'}">${m.desc}</p>` : ''}
                         </div>
+                        ${uiIcon('chevron', 'w-5 h-5 flex-shrink-0 opacity-60 relative')}
                     </button>
                 `;
             }).join('');
