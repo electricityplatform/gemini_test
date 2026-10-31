@@ -1,0 +1,76 @@
+/* =====================================================================
+   sheet.css — الشيت الشبكي (شكل إكسل): خلايا، عناوين، مقبض السحب
+   الجدول id = sheetTable
+   ===================================================================== */
+#sheetTable {
+    border-collapse: collapse;
+    width: max-content;
+    min-width: 100%;
+    background-color: var(--sheet-bg);
+}
+#sheetTable th, #sheetTable td {
+    border: 1px solid var(--sheet-border);
+    padding: 0 !important;
+    margin: 0;
+    position: relative;
+}
+#sheetTable th {
+    background-color: var(--sheet-head-bg);
+    color: var(--text);
+    font-weight: 700;
+    padding: 8px 12px !important;
+    text-align: center;
+    white-space: nowrap;
+}
+#sheetTable th .th-ar { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
+
+/* خلية بتتمدد حسب النص: نسخة شبحية من النص (::after) بتحدد الحجم والـ textarea فوقها */
+.sheet-cell { display: grid; width: 100%; min-width: 64px; }
+.sheet-cell::after,
+.sheet-cell > .excel-input {
+    grid-area: 1 / 1 / 2 / 2;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 8px 10px !important;
+    white-space: pre;
+}
+.sheet-cell::after { content: attr(data-value) " "; visibility: hidden; pointer-events: none; }
+
+.excel-input {
+    width: 100%; height: 100%; display: block; resize: none; overflow: hidden;
+    border: none !important; outline: none !important;
+    background: transparent !important; color: var(--text-strong);
+    border-radius: 0 !important; box-shadow: none !important;
+}
+.excel-input:focus {
+    background-color: var(--sheet-focus-bg) !important;
+    box-shadow: inset 0 0 0 2px var(--primary) !important;
+    z-index: 20;
+}
+
+.drag-handle {
+    position: absolute; bottom: 1px; left: 1px; width: 7px; height: 7px;
+    background-color: var(--primary); cursor: crosshair; display: none; z-index: 30;
+}
+td:hover .drag-handle { display: block; }
+
+/* خلايا القراءة فقط */
+.cell-readonly { display: block; padding: 8px 10px; font-family: var(--font-mono); font-size: 12px; white-space: nowrap; color: var(--text-muted); }
+.cell-readonly.is-center { text-align: center; }
+.cell-readonly.is-faint { color: var(--text-faint); }
+.cell-name { display: block; padding: 8px 10px; font-size: 13px; font-weight: 700; white-space: nowrap; color: var(--text-strong); }
+
+/* صف تم إدراجه في مكان معين */
+tr.is-inserted td { background: var(--sheet-insert-bg); }
+
+/* عمود الإجراءات */
+.sheet-actions > div { display: flex; align-items: center; gap: 4px; padding: 4px 8px; white-space: nowrap; }
+
+/* الحاوية */
+.sheet-wrap {
+    flex: 1; overflow: auto; padding: 4px;
+    border: 1px solid var(--sheet-border); border-radius: var(--radius-md);
+    background: var(--sheet-bg); box-shadow: inset 0 1px 3px rgba(0,0,0,.05);
+}

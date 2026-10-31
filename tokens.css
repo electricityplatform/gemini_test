@@ -1,0 +1,101 @@
+/* =====================================================================
+   tokens.css — نظام التصميم: الألوان والمسافات والخطوط والظلال
+   كل ألوان الواجهة الجديدة بتيجي من هنا، والمظهر الداكن بيغيّر القيم بس.
+   ===================================================================== */
+:root {
+    --font-sans: 'Cairo', system-ui, -apple-system, 'Segoe UI', Tahoma, sans-serif;
+    --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+    --bg-app: #eef2ff;
+    --bg-card: #ffffff;
+    --bg-subtle: #f8fafc;
+    --bg-muted: #f1f5f9;
+    --bg-hover: #eff6ff;
+
+    --text-strong: #0f172a;
+    --text: #334155;
+    --text-muted: #64748b;
+    --text-faint: #94a3b8;
+
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-soft: #eff6ff;
+    --primary-soft-text: #1d4ed8;
+    --primary-ring: rgba(37, 99, 235, .35);
+
+    --success: #059669;
+    --success-hover: #047857;
+    --success-soft: #ecfdf5;
+
+    --warning: #d97706;
+    --warning-hover: #b45309;
+    --warning-soft: #fffbeb;
+    --warning-soft-text: #b45309;
+
+    --danger: #dc2626;
+    --danger-hover: #b91c1c;
+    --danger-soft: #fef2f2;
+
+    --accent: #7c3aed;
+    --accent-soft: #f5f3ff;
+
+    --sheet-bg: #ffffff;
+    --sheet-head-bg: #f1f5f9;
+    --sheet-border: #cbd5e1;
+    --sheet-focus-bg: #eff6ff;
+    --sheet-insert-bg: #fffbeb;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, .06);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, .08);
+    --shadow-lg: 0 20px 40px rgba(15, 23, 42, .18);
+
+    --ease: cubic-bezier(.2, .8, .2, 1);
+}
+
+html.dark {
+    color-scheme: dark;
+
+    --bg-app: #0b1220;
+    --bg-card: #111827;
+    --bg-subtle: #1f2937;
+    --bg-muted: #1f2937;
+    --bg-hover: rgba(37, 99, 235, .18);
+
+    --text-strong: #f8fafc;
+    --text: #e2e8f0;
+    --text-muted: #9ca3af;
+    --text-faint: #6b7280;
+
+    --border: #374151;
+    --border-strong: #4b5563;
+
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --primary-soft: rgba(37, 99, 235, .18);
+    --primary-soft-text: #93c5fd;
+    --primary-ring: rgba(96, 165, 250, .45);
+
+    --success-soft: rgba(5, 150, 105, .18);
+    --warning-soft: rgba(217, 119, 6, .18);
+    --warning-soft-text: #fbbf24;
+    --danger-soft: rgba(239, 68, 68, .15);
+    --accent-soft: rgba(124, 58, 237, .2);
+
+    --sheet-bg: #111827;
+    --sheet-head-bg: #1f2937;
+    --sheet-border: #374151;
+    --sheet-focus-bg: #1e3a5f;
+    --sheet-insert-bg: rgba(217, 119, 6, .16);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, .45);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, .6);
+}
