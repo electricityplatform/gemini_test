@@ -161,7 +161,7 @@ html.dark .excel-input:focus { background-color: oklch(var(--p) / .2) !important
 body { background-color: oklch(var(--b2)); }
 .teal-floral { background-color:#027f8a; background-repeat:no-repeat; background-size:cover; background-position:center; }
 
-.auth-screen { margin:-1rem; position:relative; flex:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; border-radius:1.75rem; background:#027f8a; }
+.auth-screen { margin:0; position:relative; flex:1; display:flex; flex-direction:column; min-height:0; overflow:hidden; border-radius:0; background:#027f8a; }
 .auth-hero { height:30%; min-height:150px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#fff; }
 .auth-hero .brand { letter-spacing:.3em; font-weight:500; font-size:1rem; display:flex; align-items:center; gap:.6rem; }
 .auth-card { width:100%; max-width:34rem; align-self:center; flex:1; min-height:0; overflow-y:auto; margin-top:-2.5rem; border-radius:2.25rem 2.25rem 0 0; background:oklch(var(--b1)); padding:1.5rem 1.75rem 0; display:flex; flex-direction:column; position:relative; }
@@ -182,8 +182,9 @@ body { background-color: oklch(var(--b2)); }
 .side-search input::placeholder { color:rgba(255,255,255,.75); }
 .btn-primary { box-shadow:0 4px 10px oklch(var(--p) / .25); }
 
-@media (min-width:640px){ .auth-screen{ margin:-1.5rem; } }
-.auth-screen{ min-height:calc(100dvh); }
+main:has(.auth-screen){ padding:0 !important; }
+.auth-screen{ width:100%; height:100%; }
+.auth-foot{ padding-bottom:calc(.9rem + env(safe-area-inset-bottom)); }
 
 /* بطاقات الداشبورد والقوائم */
 .dash-card { display:flex; align-items:center; gap:1rem; width:100%; text-align:start; padding:1rem 1.1rem; border-radius:1.5rem; background:oklch(var(--b2)); border:1px solid oklch(var(--b3)); transition:transform .15s, background .2s; cursor:pointer; }
