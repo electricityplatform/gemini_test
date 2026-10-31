@@ -177,3 +177,22 @@ function emptyTableRowHtml(colspan, message) {
             </td>
         </tr>`;
 }
+
+
+// ================= خلفية نباتية (أوراق مرجانية + زهور بيضاء على تيل) =================
+function floralBgSvg() {
+    const leaf = (x, y, r, s, c) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M0 0C14-22 40-22 56 0C40 22 14 22 0 0Z" fill="${c}"/><path d="M4 0H50" stroke="#027f8a" stroke-opacity=".35" stroke-width="2"/></g>`;
+    const flower = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})" fill="#fff" fill-opacity=".92">${[0,72,144,216,288].map(a => `<ellipse cx="0" cy="-14" rx="9" ry="14" transform="rotate(${a})"/>`).join('')}<circle r="6" fill="#f4a58a"/></g>`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice"><rect width="400" height="600" fill="#027f8a"/>` +
+        leaf(10, 40, 20, 1.6, '#f4a58a') + leaf(80, 20, -30, 1.1, '#f7c0ab') + leaf(330, 60, 160, 1.5, '#f4a58a') +
+        leaf(380, 150, 120, 1.0, '#f7c0ab') + leaf(-10, 180, -20, 1.2, '#f7c0ab') + leaf(300, 20, 200, 1.1, '#f7c0ab') +
+        leaf(20, 520, -40, 1.5, '#f4a58a') + leaf(340, 540, 220, 1.4, '#f4a58a') + leaf(360, 400, 250, 1.0, '#f7c0ab') +
+        flower(70, 110, 1.3) + flower(340, 120, 1.0) + flower(40, 330, 1.1) + flower(350, 330, 1.4) + flower(120, 560, 1.0) + flower(250, 60, .7) +
+        `</svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+function applyFloralBackgrounds() {
+    const bg = floralBgSvg();
+    document.querySelectorAll('.teal-floral, #sideMenu').forEach(el => { el.style.backgroundImage = bg; });
+}
+document.addEventListener('DOMContentLoaded', applyFloralBackgrounds);
