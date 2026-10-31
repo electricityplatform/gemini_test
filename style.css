@@ -7,33 +7,34 @@ body {
    ===================================================================== */
 [data-theme="electricity-light"] {
     color-scheme: light;
-    --p: 51% 0.23 277;   --pc: 98% 0.01 277;
-    --s: 83% 0.17 80;    --sc: 25% 0.06 80;
-    --a: 72% 0.14 195;   --ac: 22% 0.05 195;
-    --n: 27% 0.05 275;   --nc: 96% 0.01 275;
-    --b1: 100% 0 0;      --b2: 97.5% 0.008 275;  --b3: 93% 0.015 275;  --bc: 27% 0.05 275;
-    --in: 70% 0.15 240;  --inc: 20% 0.05 240;
-    --su: 70% 0.17 160;  --suc: 20% 0.06 160;
-    --wa: 82% 0.17 80;   --wac: 25% 0.06 80;
-    --er: 62% 0.22 25;   --erc: 98% 0.01 25;
-    --rounded-box: 1.25rem; --rounded-btn: 0.9rem; --rounded-badge: 1.9rem;
+    /* هوية Narayan Tea: تيل أساسي + خوخي ثانوي + منت مميّز */
+    --p: 52% 0.095 205;  --pc: 98% 0.01 195;
+    --s: 82% 0.09 45;    --sc: 30% 0.06 40;
+    --a: 85% 0.10 180;   --ac: 28% 0.05 190;
+    --n: 33% 0.055 205;  --nc: 96% 0.015 195;
+    --b1: 100% 0 0;      --b2: 96.5% 0.014 195;  --b3: 91.5% 0.028 195;  --bc: 32% 0.055 205;
+    --in: 70% 0.12 225;  --inc: 20% 0.05 225;
+    --su: 70% 0.14 165;  --suc: 20% 0.06 165;
+    --wa: 82% 0.12 70;   --wac: 25% 0.06 70;
+    --er: 66% 0.17 25;   --erc: 98% 0.01 25;
+    --rounded-box: 1.5rem; --rounded-btn: 999px; --rounded-badge: 1.9rem;
     --animation-btn: 0.2s; --animation-input: 0.2s; --btn-focus-scale: 0.97;
-    --border-btn: 1px; --tab-border: 1px; --tab-radius: 0.8rem;
+    --border-btn: 1px; --tab-border: 1px; --tab-radius: 999px;
 }
 [data-theme="electricity-dark"] {
     color-scheme: dark;
-    --p: 68% 0.19 277;   --pc: 15% 0.04 277;
-    --s: 83% 0.17 80;    --sc: 25% 0.06 80;
-    --a: 72% 0.14 195;   --ac: 22% 0.05 195;
-    --n: 30% 0.05 275;   --nc: 94% 0.01 275;
-    --b1: 21% 0.04 275;  --b2: 18% 0.04 275;     --b3: 25% 0.05 275;   --bc: 94% 0.01 275;
-    --in: 70% 0.15 240;  --inc: 20% 0.05 240;
-    --su: 72% 0.17 160;  --suc: 20% 0.06 160;
-    --wa: 82% 0.17 80;   --wac: 25% 0.06 80;
-    --er: 68% 0.2 25;    --erc: 15% 0.05 25;
-    --rounded-box: 1.25rem; --rounded-btn: 0.9rem; --rounded-badge: 1.9rem;
+    --p: 66% 0.10 200;   --pc: 15% 0.03 200;
+    --s: 80% 0.09 45;    --sc: 25% 0.05 40;
+    --a: 80% 0.10 180;   --ac: 22% 0.05 190;
+    --n: 30% 0.05 205;   --nc: 94% 0.015 195;
+    --b1: 24% 0.035 205; --b2: 20% 0.035 205;    --b3: 29% 0.04 205;   --bc: 94% 0.015 195;
+    --in: 70% 0.12 225;  --inc: 20% 0.05 225;
+    --su: 72% 0.14 165;  --suc: 20% 0.06 165;
+    --wa: 82% 0.12 70;   --wac: 25% 0.06 70;
+    --er: 68% 0.17 25;   --erc: 15% 0.05 25;
+    --rounded-box: 1.5rem; --rounded-btn: 999px; --rounded-badge: 1.9rem;
     --animation-btn: 0.2s; --animation-input: 0.2s; --btn-focus-scale: 0.97;
-    --border-btn: 1px; --tab-border: 1px; --tab-radius: 0.8rem;
+    --border-btn: 1px; --tab-border: 1px; --tab-radius: 999px;
 }
 
 /* =====================================================================
@@ -86,14 +87,14 @@ html.dark input::placeholder, html.dark textarea::placeholder { color: oklch(var
     background-color: #ffffff;
 }
 #editableUsersTable th, #editableUsersTable td {
-    border: 1px solid #cbd5e1;
+    border: 1px solid #c5e0e1;
     padding: 0 !important;
     margin: 0;
     position: relative;
 }
 #editableUsersTable th {
-    background-color: #f1f5f9;
-    color: #334155;
+    background-color: #e6f3f3;
+    color: #0f4a50;
     font-weight: 700;
     padding: 8px 12px !important;
     text-align: center;
@@ -126,13 +127,13 @@ html.dark input::placeholder, html.dark textarea::placeholder { color: oklch(var
     background: transparent !important;
     padding: 8px 10px !important;
     font-size: 13px;
-    color: #1e293b;
+    color: #0f3b40;
     border-radius: 0 !important;
     box-shadow: none !important;
 }
 .excel-input:focus {
-    background-color: #eff6ff !important;
-    box-shadow: inset 0 0 0 2px #4f46e5 !important;
+    background-color: #e3f4f4 !important;
+    box-shadow: inset 0 0 0 2px #0e7c86 !important;
     z-index: 20;
 }
 
@@ -142,7 +143,7 @@ html.dark input::placeholder, html.dark textarea::placeholder { color: oklch(var
     left: 1px;
     width: 7px;
     height: 7px;
-    background-color: #4f46e5;
+    background-color: #0e7c86;
     cursor: crosshair;
     display: none;
     z-index: 30;
@@ -154,3 +155,22 @@ html.dark #editableUsersTable th, html.dark #editableUsersTable td { border-colo
 html.dark #editableUsersTable th { background-color: oklch(var(--b2)); color: oklch(var(--bc) / .9); }
 html.dark .excel-input { color: oklch(var(--bc)); }
 html.dark .excel-input:focus { background-color: oklch(var(--p) / .2) !important; }
+
+/* =====================================================================
+   لمسات Narayan Tea: خلفية ناعمة، كروت دائرية، أزرار كبسولة
+   ===================================================================== */
+body {
+    background-image:
+        radial-gradient(circle at 12% 8%, oklch(var(--a) / .22) 0, transparent 38%),
+        radial-gradient(circle at 92% 92%, oklch(var(--s) / .25) 0, transparent 34%);
+    background-attachment: fixed;
+}
+main { border-radius: 2rem; }
+.card, .modal-box { border-radius: 1.5rem; }
+.btn { font-weight: 700; }
+.btn-primary { box-shadow: 0 6px 16px -6px oklch(var(--p) / .55); }
+.input, .select, .textarea { border-radius: 1rem; }
+.navbar .btn-primary { border-radius: 1rem; }
+.menu li > a { border-radius: 1rem; }
+.menu li > a:hover { background-color: oklch(var(--s) / .25); }
+.badge-primary.badge-outline { border-color: oklch(var(--s)); background: oklch(var(--s) / .2); color: oklch(var(--bc)); }
