@@ -162,7 +162,7 @@ function showSystemAlert(title, idStatus, menuStatus, errorDetails = "") {
 }
 
 function getRotatingCardStyle(index) {
-    return { bg: "bg-base-200 hover:bg-base-300", border: "border-base-300 hover:border-primary/40", text: "text-base-content", icon: "text-base-content/40 group-hover:text-primary" };
+    return { bg: "bg-base-200 hover:bg-base-300 rounded-3xl", border: "border-base-300 hover:border-primary/40", text: "text-base-content", icon: "text-base-content/40 group-hover:text-primary" };
 }
 
 
@@ -179,20 +179,30 @@ function emptyTableRowHtml(colspan, message) {
 }
 
 
-// ================= خلفية نباتية (أوراق مرجانية + زهور بيضاء على تيل) =================
+// ================= خلفية كهربائية (صواعق وتروس ولمبات ودوائر على تيل) =================
+// الاسم floralBgSvg محفوظ عشان باقي الملفات بتستدعيه.
 function floralBgSvg() {
-    const leaf = (x, y, r, s, c) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M0 0C14-22 40-22 56 0C40 22 14 22 0 0Z" fill="${c}"/><path d="M4 0H50" stroke="#027f8a" stroke-opacity=".35" stroke-width="2"/></g>`;
-    const flower = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})" fill="#fff" fill-opacity=".92">${[0,72,144,216,288].map(a => `<ellipse cx="0" cy="-14" rx="9" ry="14" transform="rotate(${a})"/>`).join('')}<circle r="6" fill="#f4a58a"/></g>`;
+    const C = '#f4a58a', L = '#f7c0ab', W = '#ffffff';
+    const bolt = (x, y, r, s, c) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="${c}"/></g>`;
+    const gear = (x, y, s, c) => `<g transform="translate(${x} ${y}) scale(${s})" fill="${c}" fill-opacity=".9">${[0,45,90,135].map(a => `<rect x="-5" y="-22" width="10" height="44" rx="3" transform="rotate(${a})"/>`).join('')}<circle r="15"/><circle r="6" fill="#027f8a"/></g>`;
+    const bulb = (x, y, r, s, c) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M0-22a15 15 0 0 1 9 27v6h-18v-6a15 15 0 0 1 9-27z" fill="${c}"/><rect x="-7" y="13" width="14" height="5" rx="2" fill="#fff" fill-opacity=".85"/><rect x="-5" y="19" width="10" height="4" rx="2" fill="#fff" fill-opacity=".85"/></g>`;
+    const plug = (x, y, r, s, c) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><rect x="-6" y="-26" width="4" height="14" rx="2" fill="${c}"/><rect x="2" y="-26" width="4" height="14" rx="2" fill="${c}"/><rect x="-12" y="-12" width="24" height="18" rx="6" fill="${c}"/><path d="M0 6v14c0 6 8 6 8 12" stroke="${c}" stroke-width="4" fill="none" stroke-linecap="round"/></g>`;
+    const circuit = (d) => `<path d="${d}" stroke="#fff" stroke-opacity=".22" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const node = (x, y) => `<circle cx="${x}" cy="${y}" r="5" fill="#fff" fill-opacity=".35"/>`;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice"><rect width="400" height="600" fill="#027f8a"/>` +
-        leaf(10, 40, 20, 1.6, '#f4a58a') + leaf(80, 20, -30, 1.1, '#f7c0ab') + leaf(330, 60, 160, 1.5, '#f4a58a') +
-        leaf(380, 150, 120, 1.0, '#f7c0ab') + leaf(-10, 180, -20, 1.2, '#f7c0ab') + leaf(300, 20, 200, 1.1, '#f7c0ab') +
-        leaf(20, 520, -40, 1.5, '#f4a58a') + leaf(340, 540, 220, 1.4, '#f4a58a') + leaf(360, 400, 250, 1.0, '#f7c0ab') +
-        flower(70, 110, 1.3) + flower(340, 120, 1.0) + flower(40, 330, 1.1) + flower(350, 330, 1.4) + flower(120, 560, 1.0) + flower(250, 60, .7) +
+        circuit('M0 90H70L100 60H190') + circuit('M400 140H330L300 170V230') + circuit('M0 420H60L90 450H150') + circuit('M400 480H320L290 510H230') +
+        node(190, 60) + node(300, 230) + node(150, 450) + node(230, 510) +
+        bolt(60, 130, -15, 2.2, C) + bolt(350, 70, 12, 1.5, L) + bolt(330, 340, 10, 2.4, C) + bolt(40, 330, -12, 1.3, L) +
+        gear(330, 150, 1.3, W) + gear(60, 520, 1.6, L) + gear(180, 570, .8, C) +
+        bulb(260, 60, 15, 1.2, C) + bulb(370, 460, -10, 1.3, L) +
+        plug(30, 210, 20, 1.1, W) + plug(120, 20, 160, .9, C) +
         `</svg>`;
     return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
+let _floralCache = null;
 function applyFloralBackgrounds() {
-    const bg = floralBgSvg();
-    document.querySelectorAll('.teal-floral, #sideMenu').forEach(el => { el.style.backgroundImage = bg; });
+    const bg = _floralCache || (_floralCache = floralBgSvg());
+    document.querySelectorAll('.teal-floral, #sideMenu').forEach(el => { if (el.style.backgroundImage !== bg) el.style.backgroundImage = bg; });
 }
 document.addEventListener('DOMContentLoaded', applyFloralBackgrounds);
+new MutationObserver(() => applyFloralBackgrounds()).observe(document.documentElement, { childList: true, subtree: true });
