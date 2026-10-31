@@ -89,7 +89,7 @@ async function loadDynamicMenuIntoSidebar() {
         }
 
         if (menuItems && menuItems.length > 0) {
-            sidebarContainer.innerHTML = `<ul class="menu w-full p-0 gap-1">` + menuItems.map(item => {
+            sidebarContainer.innerHTML = `<div class="w-full">` + menuItems.map(item => {
                 let clickAction = `alert(${jsArg(item)})`;
 
                 if (item.includes('البيانات الشخصية')) {
@@ -107,19 +107,24 @@ async function loadDynamicMenuIntoSidebar() {
                 }
 
                 return `
-                    <li>
-                        <a role="button" onclick="${clickAction}" class="py-3 font-semibold gap-3">
-                            <span class="text-primary">${uiIcon(menuIconFor(item), 'w-5 h-5')}</span>
-                            <span class="flex-1" dir="auto">${escapeHtmlValue(item)}</span>
-                            ${uiIcon('chevron', 'w-4 h-4 opacity-40')}
-                        </a>
-                    </li>
+                    <a role="button" onclick="${clickAction}" class="side-item" data-label="${escapeHtmlValue(item)}">
+                        ${uiIcon(menuIconFor(item), 'w-5 h-5')}
+                        <span class="flex-1" dir="auto">${escapeHtmlValue(item)}</span>
+                    </a>
                 `;
-            }).join('') + `</ul>`;
+            }).join('') + `</div>`;
         } else {
             sidebarContainer.innerHTML = `<div class="text-center text-base-content/50 text-xs py-4">لا توجد عناصر متاحة</div>`;
         }
     } catch (err) {
         sidebarContainer.innerHTML = `<div class="text-center text-error text-xs py-4">خطأ في الاتصال</div>`;
     }
+}
+
+
+function filterSideMenu(q) {
+    q = (q || '').trim();
+    document.querySelectorAll('#sidebarContent .side-item').forEach(el => {
+        el.style.display = !q || (el.dataset.label || '').includes(q) ? '' : 'none';
+    });
 }
